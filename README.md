@@ -1,6 +1,8 @@
 # crystal-two-factor-auth
 
-TODO: Write a description here
+Two (2) Factor Authentication (2FA) Crystal code which uses the Time-based One-time Password (TOTP) algorithm. You can use this code with the Google Authenticator mobile app or the Authy mobile or browser app.
+
+* See the [wikipedia page about TOTP](https://en.wikipedia.org/wiki/Time-based_One-time_Password_algorithm)
 
 ## Installation
 
@@ -9,7 +11,7 @@ Add this to your application's `shard.yml`:
 ```yaml
 dependencies:
   crystal-two-factor-auth:
-    github: [your-github-name]/crystal-two-factor-auth
+    github: SushiChain/crystal-two-factor-auth
 ```
 
 ## Usage
@@ -18,15 +20,27 @@ dependencies:
 require "crystal-two-factor-auth"
 ```
 
-TODO: Write usage instructions here
+TODO: Write code examples of usage here
 
-## Development
+### To get this to work for you:
 
-TODO: Write development instructions here
+1. Use `generate_base32_secret()` to generate a secrey key in base32 format for the user. For example: `"NY4A5CPJZ46LXZCP"`
+2. Store the secret key in the database associated with the user account
+3. Display the QR image URK returned by `qr_image_url(...)` to the user. Here's a sample which uses GoogleAPI's:
+![Sample QR Image](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/user@j256.com%3Fsecret%3DNY4A5CPJZ46LXZCP)
+4. User uses the image to load the secret key into their authenticator application (google auth / authy)
+
+### Whenever the user logs in:
+
+1. The user enters the number from the authenticator application into the login form
+2. Read the secret associated with the user account from the database
+3. The server compares the user input with the output from `generate_current_number_string(...)`
+4. If they are equal then the user is allowed to log in
+
 
 ## Contributing
 
-1. Fork it ( https://github.com/[your-github-name]/crystal-two-factor-auth/fork )
+1. Fork it ( https://github.com/SushiChain/crystal-two-factor-auth/fork )
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)
@@ -34,4 +48,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [[your-github-name]](https://github.com/[your-github-name]) Kingsley Hendrickse - creator, maintainer
+- [kingsleyh](https://github.com/kingsleyh) Kingsley Hendrickse - creator, maintainer
