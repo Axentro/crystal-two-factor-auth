@@ -1,0 +1,13 @@
+name: crystal-two-factor-auth
+version: 0.1.0
+
+authors:
+  - Kingsley Hendrickse <kingsley.hendrickse@gmail.com>
+
+crystal: 0.24.2
+
+license: MIT
+
+dependencies:
+  crystal-base32:
+    github: SushiChain/crystal-base32
