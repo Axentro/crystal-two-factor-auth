@@ -10,8 +10,9 @@ key_id = "kings@sushichain.io"
 # we can display this image to the user to let them load it into their auth program
 puts "Image url: #{TOTP.qr_code_url(key_id, base32_secret)}"
 
-# we can use the code here and compare it against user input
-# code = TOTP.generate_number_string(base32_secret)
+# we can use the auth number here and compare it against user input
+# auth_number = TOTP.generate_number_string(base32_secret)
+# is_valid = TOTP.validate_number_string(base32_secret, auth_number)
 
 # this loop shows how the number changes over time
 while true
