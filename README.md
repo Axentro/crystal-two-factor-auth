@@ -18,15 +18,36 @@ dependencies:
 
 ```crystal
 require "crystal-two-factor-auth"
+
+# TOTP.generate_base32_secret
+base32_secret = "NY4A5CPJZ46LXZCP"
+
+# this is the name of the key which can be displayed by the authenticator program
+key_id = "kings@sushichain.io"
+
+# generate the QR code
+# we can display this image to the user to let them load it into their auth program
+puts "Image url: #{TOTP.qr_code_url(key_id, base32_secret)}"
+
+# we can use the code here and compare it against user input
+# code = TOTP.generate_number_string(base32_secret)
+
+# this loop shows how the number changes over time
+while true
+  diff = TOTP::DEFAULT_TIME_STEP_SECONDS - ((Time.now.epoch_ms / 1000) % TOTP::DEFAULT_TIME_STEP_SECONDS)
+  code = TOTP.generate_number_string(base32_secret)
+  puts "Secret code = #{code}, change in #{diff} seconds"
+  sleep 1
+end
 ```
 
-TODO: Write code examples of usage here
+See the example in `spec/two_factort_auth_example.cr`
 
 ### To get this to work for you:
 
-1. Use `generate_base32_secret()` to generate a secrey key in base32 format for the user. For example: `"NY4A5CPJZ46LXZCP"`
+1. Use `generate_base32_secret()` to generate a secret key in base32 format for the user. For example: `"NY4A5CPJZ46LXZCP"`
 2. Store the secret key in the database associated with the user account
-3. Display the QR image URK returned by `qr_image_url(...)` to the user. Here's a sample which uses GoogleAPI's:
+3. Display the QR image URK returned by `qr_code_url(...)` to the user. Here's a sample which uses GoogleAPI's:
 ![Sample QR Image](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/user@j256.com%3Fsecret%3DNY4A5CPJZ46LXZCP)
 4. User uses the image to load the secret key into their authenticator application (google auth / authy)
 

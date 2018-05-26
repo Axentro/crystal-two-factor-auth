@@ -23,9 +23,6 @@ class TOTP
   # default time-step which is part of the spec, 30 seconds is default
   DEFAULT_TIME_STEP_SECONDS = 30
 
-  # set to the number of digits to control 0 prefix, set to 0 for no prefix
-  NUM_DIGITS_OUTPUT = 6
-
   # Generate and return a 16-character secret key in base32 format (A-Z2-7) using cystal-base32. Could be used
   # to generate the QR image to be shared with the user. Other lengths should use generate_base32_secret(Int32).
   def self.generate_base32_secret(length : Int32 = 16)
@@ -34,11 +31,11 @@ class TOTP
 
   # Validates if the auth number supplied matches the code generated from the base32_secret
   # By default it works on the current time and uses the default time step
-  # base32_secret: Secret string encoded using base-32 that was used to generate the QR code or shared with the user.
-  # auth_number: Time based number provided by the user from their authenticator application.
-  # window_millis: Number of milliseconds that they are allowed to be off and still match. This checks before and after the current time to account for clock variance. Set to 0 for no window. Defaults to 10 seconds
-  # time_millis: Time in milliseconds.
-  # time_step_seconds: Time step in seconds. The default value is 30 seconds here
+  # * base32_secret: Secret string encoded using base-32 that was used to generate the QR code or shared with the user.
+  # * auth_number: Time based number provided by the user from their authenticator application.
+  # * window_millis: Number of milliseconds that they are allowed to be off and still match. This checks before and after the current time to account for clock variance. Set to 0 for no window. Defaults to 10 seconds
+  # * time_millis: Time in milliseconds.
+  # * time_step_seconds: Time step in seconds. The default value is 30 seconds here
   def self.validate_number_string(base32_secret : String, auth_number : String, window_millis : Int32 = 10000, time_millis : Int64 = Time.now.epoch_ms, time_step_seconds : Int32 = DEFAULT_TIME_STEP_SECONDS)
     from = time_millis
     to = time_millis
@@ -64,11 +61,18 @@ class TOTP
     "%06d" % number
   end
 
+  # Return the QR image url thanks to Google. This can be shown to the user and scanned by the authenticator program
+  # as an easy way to enter the secret.
+  # * key_id: Name of the key that you want to show up in the users authentication application. Should already be URL encoded.
+  # * secret: Secret string that will be used when generating the current number.
   def self.qr_code_url(key_id : String, secret : String)
     otp_url = otp_auth_url(key_id, secret)
     "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=#{otp_url}"
   end
 
+  # Return the otp-auth part of the QR image which is suitable to be injected into other QR generators (e.g. JS generator)
+  # * key_id: Name of the key that you want to show up in the users authentication application. Should already be URL encoded.
+  # * secret: Secret string that will be used when generating the current number.
   def self.otp_auth_url(key_id : String, secret : String)
     "otpauth://totp/#{key_id}%3Fsecret%3D#{secret}"
   end
