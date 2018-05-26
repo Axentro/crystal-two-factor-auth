@@ -44,7 +44,7 @@ while true
 end
 ```
 
-See the example in `spec/two_factort_auth_example.cr`
+See the example in `spec/two_factor_auth_example.cr`
 
 ### To get this to work for you:
 
