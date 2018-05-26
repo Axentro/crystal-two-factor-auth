@@ -1,5 +1,7 @@
 # crystal-two-factor-auth
 
+[![Build Status](https://travis-ci.org/SushiChain/crystal-two-factor-auth.svg?branch=master)](https://travis-ci.org/SushiChain/crystal-two-factor-auth)
+
 Two (2) Factor Authentication (2FA) Crystal code which uses the Time-based One-time Password (TOTP) algorithm. You can use this code with the Google Authenticator mobile app or the Authy mobile or browser app.
 
 * See the [wikipedia page about TOTP](https://en.wikipedia.org/wiki/Time-based_One-time_Password_algorithm)
