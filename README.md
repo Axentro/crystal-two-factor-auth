@@ -51,7 +51,7 @@ See the example in `spec/two_factor_auth_example.cr`
 1. Use `generate_base32_secret()` to generate a secret key in base32 format for the user. For example: `"NY4A5CPJZ46LXZCP"`
 2. Store the secret key in the database associated with the user account
 3. Display the QR image URK returned by `qr_code_url(...)` to the user. Here's a sample which uses GoogleAPI's:
-![Sample QR Image](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/user@j256.com%3Fsecret%3DNY4A5CPJZ46LXZCP)
+![Sample QR Image](https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=otpauth://totp/kings@sushichain.io%3Fsecret%3DNY4A5CPJZ46LXZCP)
 4. User uses the image to load the secret key into their authenticator application (google auth / authy)
 
 ### Whenever the user logs in:
