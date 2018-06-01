@@ -1,7 +1,7 @@
 require "../src/crystal-two-factor-auth"
 
 # TOTP.generate_base32_secret
-base32_secret = "NY4A5CPJZ46LXZCP"
+base32_secret = "DSAA7Z65W7E6BMSB"
 
 # this is the name of the key which can be displayed by the authenticator program
 key_id = "kings@sushichain.io"

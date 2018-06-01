@@ -37,6 +37,7 @@ class TOTP
   # * time_millis: Time in milliseconds.
   # * time_step_seconds: Time step in seconds. The default value is 30 seconds here
   def self.validate_number_string(base32_secret : String, auth_number : String, window_millis : Int32 = 10000, time_millis : Int64 = Time.now.epoch_ms, time_step_seconds : Int32 = DEFAULT_TIME_STEP_SECONDS)
+    return false if base32_secret.empty? || auth_number.empty?
     from = time_millis
     to = time_millis
     if window_millis > 0

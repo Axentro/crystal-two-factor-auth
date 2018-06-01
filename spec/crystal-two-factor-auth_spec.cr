@@ -28,6 +28,10 @@ describe TOTP do
       assert_validate_string(true, secret, "162123", 15001)
       assert_validate_string(false, secret, "287511", 15000)
     end
+    it "should return false if secret and/or auth code is empty" do
+      assert_validate_string(false, "", "162123")
+      assert_validate_string(false, secret, "")
+    end
   end
   describe "#generate_base32_secret" do
     it "should generate a base32 secret key" do
