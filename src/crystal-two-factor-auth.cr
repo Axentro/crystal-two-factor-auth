@@ -57,7 +57,7 @@ class TOTP
   # Generate the authenticator number that is shown in the users app e.g. Google authenticator or Authy
   # By default returns the current number but a time and time step can also be supplied.
   # The returned number is zero padded if required.
-  def self.generate_number_string(base32_secret : String, time_millis : Int64 = Time.now.epoch_ms, time_step_seconds : Int32 = DEFAULT_TIME_STEP_SECONDS)
+  def self.generate_number_string(base32_secret : String, time_millis : Int64 = Time.now.to_unix_ms, time_step_seconds : Int32 = DEFAULT_TIME_STEP_SECONDS)
     number = generate_number(base32_secret, time_millis, time_step_seconds)
     "%06d" % number
   end
