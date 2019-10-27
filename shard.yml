@@ -1,10 +1,10 @@
 name: crystal-two-factor-auth
-version: 0.1.1
+version: 0.1.2
 
 authors:
   - Kingsley Hendrickse <kingsley.hendrickse@gmail.com>
 
-crystal: 0.24.2
+crystal: 0.31.1
 
 license: MIT
 

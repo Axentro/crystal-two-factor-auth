@@ -83,7 +83,7 @@ class TOTP
     key = Base32.decode_as_bytes(base32_secret)
 
     data = Bytes.new(8)
-    value = time_millis / 1000 / time_step_seconds
+    value = (time_millis / 1000 / time_step_seconds).to_i64
     (1..7).to_a.reverse.each { |i| data[i] = (value & 0xFF).to_u8; value >>= 8 }
 
     # encrypt the data with the key and return the SHA1 of it in hex
